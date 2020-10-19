@@ -1,0 +1,73 @@
+{
+  "name": "gacha-o-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "scripts": {
+    "check": "npm run format && npm run lint",
+    "dev": "nodemon ./src/index.js",
+    "format": "prettier --write \"**/*.+(js|yml|yaml|json)\"",
+    "lint": "eslint .",
+    "start": "node ./src/index.js",
+    "test": "mocha --recursive ",
+    "test-watch": "mocha --recursive -w",
+    "make-reports": "mocha --reporter mochawesome || true",
+    "reports": "google-chrome ./mochawesome-report/mochawesome.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Lunarisnia/gacha-o-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lunarisnia/gacha-o-api/issues"
+  },
+  "homepage": "https://github.com/Lunarisnia/gacha-o-api#readme",
+  "dependencies": {
+    "argon2": "^0.27.0",
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "google-auth-library": "^6.1.0",
+    "joi": "^17.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "nanoid": "^3.1.12",
+    "nodemailer": "^6.4.12",
+    "pg": "^8.3.3",
+    "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.0.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "mocha": "^8.1.3",
+    "mochawesome": "^6.1.1",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.2",
+    "sequelize-cli": "^6.2.0",
+    "unique-names-generator": "^4.3.1"
+  }
+}
