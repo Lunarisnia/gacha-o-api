@@ -1,0 +1,127 @@
+swagger: "2.0"
+info:
+  description: "GO Swagger dokumentasi dari Backend untuk Frontend"
+  version: "1.0.0"
+  title: "Go Backend Open-API"
+host: "localhost:3001"
+tags:
+  - name: "user"
+    description: "Operation untuk user"
+  - name: "auth"
+    description: "Operation untuk dapat token/login"
+schemes:
+  - "http"
+paths:
+  /user:
+    post:
+      tags:
+        - "user"
+      summary: "Buat user baru"
+      operationId: "createUser"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "Status OK"
+        "400":
+          description: "Status Bad Request"
+  /user/getOne:
+    get:
+      tags:
+        - "user"
+      summary: "Mengembalikan data Email & Username dari token"
+      description: "Ini hanya bisa di lakukan setelah mendapatkan token"
+      operationId: "loginUser"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Status OK"
+          schema:
+            $ref: "#/definitions/getOne"
+          headers:
+            Bearer Token:
+              type: "string"
+              format: "token"
+              description: "diperlukan JWT token untuk mengembalikan data"
+        "400":
+          description: "Status Bad Request"
+        "401":
+          description: "Unauthorized"
+      security:
+        - api_key: []
+  /auth:
+    post:
+      tags:
+        - "auth"
+      summary: "Login user untuk mendapatkan token"
+      description: ""
+      operationId: "authUser"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Username bisa di ganti menggunakan Email untuk login"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              Username:
+                type: "string"
+              Password:
+                type: "string"
+      responses:
+        "200":
+          description: "Status OK"
+          headers:
+            X-Authorized-Status:
+              type: "boolean"
+              format: "boolean"
+              description: "authorized user dengan value true"
+            X-ID-User:
+              type: "string"
+              format: "uuid"
+              description: "value uuid berasal dari ID user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "token expired setelah 30 menit"
+          schema:
+            type: "string"
+        "400":
+          description: "Status Bad Request"
+        "404":
+          description: "Resource not found"
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "Bearer Token"
+    in: "header"
+definitions:
+  getOne:
+    type: "object"
+    properties:
+      Username:
+        type: "string"
+      Email:
+        type: "string"
+  User:
+    type: "object"
+    properties:
+      ID:
+        type: "string"
+      Username:
+        type: "string"
+      Email:
+        type: "string"
+      Password:
+        type: "string"

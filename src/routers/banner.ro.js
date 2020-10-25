@@ -1,5 +1,7 @@
 'use strict';
 
+const { getBanner } = require('../controllers/banner.co');
+
 module.exports = (router) => {
-  router.get('/', (req, res) => res.send('Oke'));
+  router.get('/', getBanner);
 };
